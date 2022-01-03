@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container">
+    <div class="title">
+        <div class="title-text">SaQie<i class="fas fa-meteor"></i>Blog</div>
+        <hr>
+        <div class="row" th:each="category : ${categories}">
+            <div class="col">
+                <a th:href="'/home/' + ${category.name}"><div class="category">
+                    <div class="category-title"><i class="fas fa-square"></i> <span th:text="${category.name}"></span>
+                    </div>
+                    <div class="category-undertitle">
+                        <hr>
+                        <span th:text="${category.description}"></span></div>
+                </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+        <div th:insert="fragments/footer :: footer">
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

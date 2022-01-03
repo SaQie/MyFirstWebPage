@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container">
+    <table class="table table-dark table-hover align-middle">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nazwa kategorii</th>
+            <th scope="col">Opis</th>
+            <th scope="col">Akcja</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <th scope="row" th:text="${category.id}"></th>
+            <td th:text="${category.name}"></td>
+            <td th:text="${category.description}"></td>
+            <td><a th:href="'/admin/categories/?Id=' + ${category.id}">
+                <button type="button" class="btn btn-success">Zarządzaj</button>
+            </a></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div th:replace="fragments/footer :: footer">
+    </div>
+</div>
+</body>
+</html>

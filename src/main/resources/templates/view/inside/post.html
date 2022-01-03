@@ -1,0 +1,63 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+
+<div class="container">
+    <div class="title">
+        <div class="title-text"><i class="fas fa-ghost"></i> <span th:text="${post.topic}"></span></div>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="category-hover">
+                <div class="category-undertitle">
+                    <span th:text="'Post: ' + ${post.topic} + ' Utworzone przez: '"></span> <a th:href="'/home/user/' + ${post.user.username}"><span th:if="${post.user.role.equals('ADMIN')}" style="color:red" th:text="${post.user.username}"></span> <span th:if="${post.user.role.equals('USER')}" style="color:cyan" th:text="${post.user.username}"></span></a><span th:text="' W kategorii: ' + ${post.category.name}"></span>
+                </div>
+                <div class="post-content">
+                    <hr>
+                    <span th:text="${post.content}"></span>
+                </div>
+                </a>
+            </div>
+        </div>
+        <hr>
+    </div>
+    <div class="row" th:each="commente : ${comment}">
+        <div class="col">
+            <div class="post-content">
+                <hr>
+                <a th:href="'/home/user/' + ${commente.user.username}"><span th:if="${commente.user.role.equals('ADMIN')}" style="color:red" th:text="${commente.user.username}"></span> <span th:if="${commente.user.role.equals('USER')}" style="color:cyan" th:text="${commente.user.username}"></span></a> <span style="color:goldenrod"> napisał:</span>
+                <br>
+                <span th:text="${commente.text}"></span>
+            </div>
+            </a>
+        </div>
+    </div>
+    <hr>
+</div>
+</div>
+<div class="container-fluid" sec:authorize="isAuthenticated()">
+    <div class="row justify-content-center align-items-center">
+        <form class="col-md-offset-3 col-md-5 col-md-offset-3" th:method="post"
+              th:action="@{'/home/' + ${post.category.name} + '/' + ${post.id}}">
+            <div class="login-layout">
+                <div class="category-undertitle"><span
+                        th:text="'Dodajesz komentarz jako: ' + ${#authentication.name}"></span>
+                    <hr>
+                </div>
+                <textarea autofocus="true" th:field="${comments.text}" cols="5" rows="2" style="color: #428C42; background-color: #212529; font-weight: bold; width: 100%; height: 150%; border-style: solid; border-color: #212529">Wpisz tutaj treść odpowiedzi</textarea>
+                <input type="hidden" th:field="${post.id}">
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button class="btn btn-success" type="submit">Dodaj komentarz</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:replace="fragments/footer :: footer">
+</div>
+</body>
+</html>

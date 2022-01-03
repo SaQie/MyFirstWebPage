@@ -1,0 +1,86 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/eaf9bb2d7a.js" crossorigin="anonymous"></script>
+    <title>Hello, world!</title>
+    <link href="../static/styles/style_header.css" th:href="@{/styles/style_header.css}" rel="stylesheet" >
+    <link href="../static/styles/style.css" th:href="@{/styles/style.css}" rel="stylesheet" >
+    <link href="../static/styles/style_login.css" th:href="@{/styles/style_login.css}" rel="stylesheet" >
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" th:fragment="navigation">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/home}">SaQie<i class="fas fa-meteor"></i>Blog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" th:href="@{/home}">Forum</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link"  th:href="@{/rules}">Regulamin</a>
+                </li>
+            </ul>
+
+
+            <!-- Modal -->
+            <div class="d-flex" sec:authorize="hasAuthority('ADMIN')">
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                    <span th:text="'Admin panel'"></span>
+                </button>
+                <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel1" th:text="'Panel administracyjny'"></h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <ul>
+                                    <li><a th:href="@{/admin/users}"><button type="submit" class="btn btn-warning">Zarządzanie użytkownikami</button></a></li>
+                                    <li><a th:href="@{/admin/categories}"><button type="button" class="btn btn-warning" >Zarządzanie kategoriami</button></a></li>
+                                    <li><a th:href="@{/admin/categories/add}"><button type="button" class="btn btn-warning" >Dodaj nową kategorie</button></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex" sec:authorize="isAuthenticated()">
+                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <span th:text="${#authentication.name}"></span>
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel" th:text="'Co chcesz zrobić ' + ${#authentication.name} + ' ?'"></h5>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <a th:href="'/home/user/' + ${#authentication.name}"><button type="submit" class="btn btn-success">Zobacz profil</button></a>
+                                <a th:href="'/home/user/settings/' + ${#authentication.name}"><button type="submit" class="btn btn-success">Ustawienia profilu</button></a>
+                                <a th:href="@{/auth/logout}"><button type="button" class="btn btn-success" >Wyloguj się</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex" sec:authorize="isAnonymous()">
+                <a th:href="@{/auth/login}"> <button class="btn btn-outline-success" type="submit">Zaloguj się</button></a>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

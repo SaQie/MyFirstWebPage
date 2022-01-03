@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+        <form class="col-md-offset-4 col-md-4 col-md-offset-4" th:method="post" th:action="@{/admin/categories/add}">
+            <div class="login-layout">
+                <div th:if="${succes == true}">
+                    <div class="alert alert-success">
+                        Pomyślnie dodano kategorie.
+                    </div>
+                </div>
+                <div class="login-text text-center">Dodawanie nowej kategorii</div>
+                <div class="register-text text-center">Kliknij <a th:href="@{/admin/categories}" class="link-success">tutaj </a> Aby powrócić do listy kategorii</div>
+                <div class="form-group">
+                    <label></label>
+                    <input th:field="${category.name}" type="text" class="form-control" placeholder="Nazwa">
+                    <p class="error text-warning" th:errors="${category.name}"></p>
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <input th:field="${category.description}" type="text" class="form-control" placeholder="Opis kategorii">
+                    <p class="error text-warning" th:errors="${category.description}"></p>
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-success" type="submit">Dodaj</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
+
+

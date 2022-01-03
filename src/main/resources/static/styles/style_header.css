@@ -1,0 +1,27 @@
+.fa-meteor{
+    color:orange;
+}
+body{
+    background-color: darkgrey;
+    margin: auto;
+    align-items: center;
+    align-content: center;
+}
+
+.nav-link{
+    transition: 0.5s;
+
+}
+.nav-link{
+    margin-left: 5px;
+}
+
+
+.nav-link:hover{
+    transition: 0.5s;
+    background-color: orange;
+    color:white;
+}
+.navbar{
+    margin-bottom: 50px;
+}

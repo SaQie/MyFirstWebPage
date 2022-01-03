@@ -1,0 +1,71 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container">
+    <table class="table table-dark table-hover align-middle">
+        <thead>
+        <h3 style="color:white" th:text="'Profil użytkownika ' + ${userByUsername.username}"></h3>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Nazwa użytkownika</th>
+            <td th:text="${userByUsername.username}"></td>
+        </tr>
+        <tr>
+            <th>E-Mail</th>
+            <td th:text="${userByUsername.email}"></td>
+        </tr>
+        <tr>
+            <th>Potwierdzony E-Mail</th>
+            <th:block th:if="${userByUsername.enabled} == true">
+                <td style="color:green">Tak</td>
+            </th:block>
+            <th:block th:if="${userByUsername.enabled} == false">
+                <td style="color:red">Nie</td>
+            </th:block>
+        </tr>
+        <tr>
+            <th>Aktualna rola</th>
+            <th:block th:if="${userByUsername.role.equals('ADMIN')}">
+                <td style="color:red">Administrator</td>
+            </th:block>
+            <th:block th:if="${userByUsername.role.equals('USER')}">
+                <td style="color:cyan">Użytkownik</td>
+            </th:block>
+        </tr>
+        <tr>
+            <th>Napisane posty</th>
+            <td th:text="${userByUsername.writedPosts}"></td>
+        </tr>
+        <tr>
+            <th>Napisane komentarze</th>
+            <td th:text="${userByUsername.writedComments}"></td>
+        </tr>
+        <tr>
+            <th>Imię</th>
+            <th:block th:if="${userByUsername.firstName != null}">
+                <td th:text="${userByUsername.firstName}"></td>
+            </th:block>
+            <th:block th:if="${userByUsername.firstName == null}">
+                <td th:text="'Nie podano'"></td>
+            </th:block>
+        </tr>
+        <tr>
+            <th>Nazwisko</th>
+            <th:block th:if="${userByUsername.lastName != null}">
+                <td th:text="${userByUsername.lastName}"></td>
+            </th:block>
+            <th:block th:if="${userByUsername.lastName == null}">
+                <td th:text="'Nie podano'"></td>
+            </th:block>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div th:replace="fragments/footer :: footer">
+    </div>
+</div>
+</body>
+</html>

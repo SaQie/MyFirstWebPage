@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="fragments/header :: header">
+</head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center">
+        <form class="col-md-offset-4 col-md-4 col-md-offset-4" th:method="post" th:action="@{/auth/login}">
+            <div class="login-layout">
+                <div th:if="${param.error}">
+                    <div class="alert alert-danger">
+                        [[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]
+                    </div>
+                </div>
+                <div th:if="${param.logout}">
+                    <div class="alert alert-info">
+                        Zostałeś wylogowany.
+                    </div>
+                </div>
+                <div class="login-text text-center">Zaloguj się</div>
+                <div class="register-text text-center">Nie masz jeszcze konta ? <a th:href="@{/auth/register}" class="link-success">Zarejestruj się !</a></div>
+                <div class="form-group">
+                    <label></label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Login">
+                </div>
+                <div class="form-group">
+                    <label></label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Hasło">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button class="btn btn-success" type="submit">Zaloguj się</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:replace="fragments/footer :: footer"></div>
+</div>
+</body>
+</html>
+
+

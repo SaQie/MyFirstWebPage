@@ -1,0 +1,91 @@
+<!doctype html>
+<html xmlns:th="https://www.thymeleaf.org" lang="pl">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<nav th:replace="fragments/header :: navigation"></nav>
+<div class="container">
+    <table class="table table-dark table-hover align-middle">
+        <thead>
+        <h3 th:text="'Zarządzasz ' + ${user.username}"></h3>
+
+        </thead>
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <td th:text="${user.id}"></td>
+        </tr>
+        <tr>
+            <th>Nazwa użytkownika</th>
+            <td th:text="${user.username}"></td>
+        </tr>
+        <tr>
+            <th>E-Mail</th>
+            <td th:text="${user.email}"></td>
+        </tr>
+        <tr>
+            <th>Imię</th>
+            <td th:text="${user.firstName}"></td>
+        </tr>
+        <tr>
+            <th>Nazwisko</th>
+            <td th:text="${user.lastName}"></td>
+        </tr>
+        <tr>
+            <th>Konto utworzone dnia</th>
+            <td th:text="${user.createdDate}"></td>
+        </tr>
+        <tr>
+            <th>Potwierdzony E-Mail</th>
+            <th:block th:if="${user.enabled} == true">
+                <td style="color:green">Tak</td>
+            </th:block>
+            <th:block th:if="${user.enabled} == false">
+                <td style="color:red">Nie</td>
+            </th:block>
+        </tr>
+        <tr>
+            <th>Zablokowane konto</th>
+            <th:block th:if="${user.locked} == true">
+                <td style="color:red">Tak</td>
+            </th:block>
+            <th:block th:if="${user.locked} == false">
+                <td style="color:green">Nie</td>
+            </th:block>
+        </tr>
+        <tr>
+            <th>Rola</th>
+            <th:block th:if="${user.role.equals('ADMIN')}">
+                <td style="color:red">Administrator</td>
+            </th:block>
+            <th:block th:if="${user.role.equals('USER')}">
+                <td style="color:cyan">Użytkownik</td>
+            </th:block>
+        </tr>
+        <tr>
+            <th>Liczba postów</th>
+            <td th:text="${user.writedPosts}"></td>
+        </tr>
+        <tr>
+            <th>Liczba Komentarzy</th>
+            <td th:text="${user.writedComments}"></td>
+        </tr>
+        <tr>
+            <th>Nadaj role</th>
+            <td><a style="color:red" th:href="'/admin/users/role/admin/?Id=' + ${user.id}">Administrator</a> | <a
+                    style="color:cyan" th:href="'/admin/users/role/user/?Id=' + ${user.id}">Użytkownik</a></td>
+        </tr>
+        <tr>
+            <th>Akcja</th>
+            <td><a th:href="'/admin/users/delete/?Id=' + ${user.id}">Usuń</a> |
+                <a th:href="'/admin/users/reset/?Id=' + ${user.id}">Wyzeruj statystyki</a>  |
+                <a th:href="'/admin/users/reset/?Id=' + ${user.id}">Edytuj dane</a>  |
+                <th:block th:if="${user.locked == false}"><a th:href="'/admin/users/block/?Id=' + ${user.id}">Zablokuj użytkownika</a></th:block><th:block th:if="${user.locked == true}"><a th:href="'/admin/users/unlock/?Id=' + ${user.id}">Odblokuj użytkownika</a></th:block></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <div th:replace="fragments/footer :: footer">
+    </div>
+</div>
+</body>
+</html>
