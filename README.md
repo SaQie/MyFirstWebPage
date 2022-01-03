@@ -1,6 +1,6 @@
 # FirstWebPage
 
-CRUD page, i used MySQL, Java, Spring Boot, Spring Security, JPA, Hibernate, Thymeleaf, Loombok, HTML, CSS, Bootstrap, jQuery, JavaMail
+CRUD page, i used MySQL, Java, Spring Boot, Hibernate, Thymeleaf, Loombok, HTML, CSS, Bootstrap, JavaMail
 
 **Start application on localhost:8080/home**
 
